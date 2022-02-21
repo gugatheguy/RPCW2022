@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <meta>
+        <Titulo>
+            TPC1- Criação Página Web
+        </Titulo>
+        <Data>
+            21 de Fevereiro de 2022
+        </Data>
+        <Autor>
+            Gustavo Lourenço PG47229
+        </Autor>
+        <UC>
+            Representação e Processamento de Conhecimento na Web
+        </UC>
+    </meta>
+    <Resumo>
+        Criação de uma página web sobre o tema Janela.
+    </Resumo>
+    <ficheiros>
+        <link url="./index.html">Pagina html </link>
+        <link url="./jan1.jpg">Imagem de uma janela</link>
+        <link url="./jan2.jpg">Imagem de uma janela</link>
+        <link url="./jan3.jpg">Imagem de uma janela</link>
+        <link url="./jan4.jpg">Imagem de uma janela</link>
+        <link url="./jan5.jpg">Imagem de uma janela</link>
+        <link url="./jan6.jpg">Imagem de uma janela</link>
+    </ficheiros>
+</xml>
