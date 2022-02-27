@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC2: um file server</titulo>
+        <data>2022-02-22</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Criação de um file server para gerir o acesso a ficheiros com informações de atores e filmes retirados de um dataset em JSON.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>fileserver.js</url>
+            <texto>File server</texto>
+        </resultado>
+        <resultado>
+            <url>createfiles.py</url>
+            <texto>Ficheiro em python que realiza o parse ao dataset e cria as páginas html resultantes.</texto>
+        </resultado>
+    </resultados>
+</doc>
