@@ -63,6 +63,7 @@ myserver = http.createServer(function (req,res){
     console.log(req.method + " " + req.url + " " + d)
 
     var parsed = url.parse(req.url, true)
+    console.log("query"+parsed.path)
     switch(parsed.pathname){
         case("/"):
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
@@ -70,7 +71,7 @@ myserver = http.createServer(function (req,res){
             res.end()
             break;
         case("/alunos"):
-            axios.get('http://localhost:3000/alunos')
+            axios.get('http://localhost:3000'+parsed.path)
             .then(function(resp) {
                 var alunos = resp.data;
                 res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
@@ -82,7 +83,7 @@ myserver = http.createServer(function (req,res){
             });
             break;
             case("/instrumentos"):
-            axios.get('http://localhost:3000/instrumentos')
+            axios.get('http://localhost:3000'+parsed.path)
             .then(function(resp) {
                 var insts = resp.data;
                 res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
@@ -94,7 +95,7 @@ myserver = http.createServer(function (req,res){
             });
             break;
             case("/cursos"):
-            axios.get('http://localhost:3000/cursos')
+            axios.get('http://localhost:3000'+parsed.path)
             .then(function(resp) {
                 var cursos = resp.data;
                 cursos.forEach(c=>{
