@@ -11,15 +11,15 @@ function generateMainPage(){
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         </head>
         <body>
-            <div class="w3-cell-row">
-                <div class="w3-container w3-pale-blue w3-cell w3-center w3-mobile" style="width:33%">
-                    <h2><a href="http://localhost:7777/alunos">Lista de alunos</a></h2>
+            <div class="w3-cell-row w3-padding-16">
+                <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
+                    <a href="http://localhost:7777/alunos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de alunos</h2></a>
                 </div>
-                <div class="w3-container w3-pale-green w3-cell w3-center w3-mobile" style="width:33%">
-                    <h2><a href="http://localhost:7777/cursos">Lista de cursos</a></h2>
+                <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
+                    <a href="http://localhost:7777/cursos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de cursos</h2></a>
                 </div>
-                <div class="w3-container w3-pale-blue w3-cell w3-center w3-mobile" style="width:33%">
-                    <h2><a href="http://localhost:7777/instrumentos">Lista de instrumentos</a></h2>
+                <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
+                    <a href="http://localhost:7777/instrumentos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de instrumentos</h2></a>
                 </div>
             </div> 
         </body>
@@ -52,7 +52,11 @@ function generateTablePage(keys,data,title){
         }
         page += "\t\t</tr>\n"
     })
-    page+=`\t</div>
+    page+=`\t</table>
+        </div>
+        <div class="w3-container w3-center w3-mobile">
+            <a href="http://localhost:7777" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h3>Voltar</h3></a>
+        </div>
         </body>
     </html>`
     return page
