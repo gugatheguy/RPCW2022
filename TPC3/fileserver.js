@@ -13,13 +13,13 @@ function generateMainPage(){
         <body>
             <div class="w3-cell-row w3-padding-16">
                 <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
-                    <a href="http://localhost:7777/alunos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de alunos</h2></a>
+                    <a href="http://localhost:4000/alunos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de alunos</h2></a>
                 </div>
                 <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
-                    <a href="http://localhost:7777/cursos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de cursos</h2></a>
+                    <a href="http://localhost:4000/cursos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de cursos</h2></a>
                 </div>
                 <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
-                    <a href="http://localhost:7777/instrumentos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de instrumentos</h2></a>
+                    <a href="http://localhost:4000/instrumentos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de instrumentos</h2></a>
                 </div>
             </div> 
         </body>
@@ -55,7 +55,7 @@ function generateTablePage(keys,data,title){
     page+=`\t</table>
         </div>
         <div class="w3-container w3-center w3-mobile">
-            <a href="http://localhost:7777" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h3>Voltar</h3></a>
+            <a href="http://localhost:4000" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h3>Voltar</h3></a>
         </div>
         </body>
     </html>`
@@ -122,5 +122,5 @@ myserver = http.createServer(function (req,res){
     }
 });
 
-myserver.listen(7777)
-console.log('Servidor à escuta na porta 7777')
+myserver.listen(4000)
+console.log('Servidor à escuta na porta 4000')
