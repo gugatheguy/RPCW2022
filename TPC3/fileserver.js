@@ -11,6 +11,9 @@ function generateMainPage(){
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         </head>
         <body>
+            <div class="w3-container w3-pale-blue w3-center w3-mobile">
+                <h2>Escola de música</h2>
+            </div>
             <div class="w3-cell-row w3-padding-16">
                 <div class="w3-container w3-cell w3-center w3-mobile" style="width:33%">
                     <a href="http://localhost:4000/alunos" class="w3-button w3-pale-blue w3-hover-gray w3-round-large"><h2>Lista de alunos</h2></a>
