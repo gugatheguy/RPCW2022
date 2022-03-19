@@ -1,0 +1,12 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "SPA responsible for a toDo list",
+  "main": "toDo.js",
+  "scripts": {
+    "run": "node toDo.js",
+    "dev": "nodemon toDo.js"
+  },
+  "author": "gustavo",
+  "license": "ISC"
+}
