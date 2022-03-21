@@ -1,5 +1,6 @@
 var http = require('http')
 var axios = require('axios')
+var url = require('url')
 var fs = require('fs')
 var stt = require('./static.js')
 
@@ -28,8 +29,13 @@ function geraToDoTasks(tasks){
                     <span class="w3-right">
                         <div class="w3-cell-row">
                             <div class="w3-cell">
-                                <form action="/tasks/${t.id}/complete" method="POST">
+                                <form action="/tasks/${t.id}/do" method="POST">
                                     <button class="w3-button w3-round-large w3-teal w3-hover-gray" type="submit">Done</button>
+                                </form>
+                            </div>
+                            <div class="w3-cell">
+                                <form action="/edit/${t.id}" method="GET">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-gray" type="submit">Edit</button>
                                 </form>
                             </div>
                             <div class="w3-cell">
@@ -59,6 +65,16 @@ function geraDoneTasks(tasks){
                 <li class="w3-bar">
                     <span class="w3-right">
                         <div class="w3-cell-row">
+                            <div class="w3-cell">
+                                <form action="/tasks/${t.id}/undo" method="POST">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-gray" type="submit">Undo</button>
+                                </form>
+                            </div>
+                            <div class="w3-cell">
+                                <form action="/edit/${t.id}" method="GET">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-gray" type="submit">Edit</button>
+                                </form>
+                            </div>
                             <div class="w3-cell">
                                 <form action="/tasks/${t.id}/delete" method="POST">
                                     <button class="w3-button w3-round-large w3-teal w3-hover-red" type="submit">Delete</button>
@@ -101,6 +117,29 @@ function geraForm(){
 `
 }
 
+function geraEditForm(t){
+    return `
+            <h2 class="w3-text-teal">Registar nova terafa</h2>
+            <form class="w3-container" action="/tasks/${t.id}/edit" method="POST">
+                <label class="w3-text-teal"><b>Nome</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="name" value="${t.name}"/>
+
+                <label class="w3-text-teal"><b>Tarefa</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="task" value="${t.task}"/>
+
+                <label class="w3-text-teal"><b>Tipo</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="type" value="${t.type}"/>
+
+                <label class="w3-text-teal"><b>Data Limite</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="deadline" value="${t.deadline}"/>
+                <br>
+
+                <input class="w3-btn w3-blue-grey" type="submit" value="Registar"/>
+                <input class="w3-btn w3-blue-grey" type="reset" value="Limpar valores"/> 
+            </form>
+`
+}
+
 function geraPag(d,form,todo,done){
     return `<html>
     <head>
@@ -130,7 +169,6 @@ function geraPag(d,form,todo,done){
 }
 
 var toDoServer = http.createServer(function (req, res) {
-    
     var d = new Date().toISOString().substr(0, 16)
     console.log(req.method + " " + req.url + " " + d)
     if (stt.recursoEstatico(req)){
@@ -160,6 +198,27 @@ var toDoServer = http.createServer(function (req, res) {
                         res.write("<p> Erro ao contactar a base de dados.</p>")
                         res.end()
                     })
+                }else if(/\/edit\/[0-9]+/.test(req.url)){
+                    var id = req.url.split('/')[2]
+                    axios.get("http://localhost:3000/tasks?status=toDo")
+                    .then(response => {
+                        var toDo = geraToDoTasks(response.data)
+                        axios.get("http://localhost:3000/tasks?status=done")
+                        .then(response2 => {
+                            var done = geraDoneTasks(response2.data)
+                            axios.get("http://localhost:3000/tasks/"+id)
+                            .then(response3 => {
+                                res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                                res.write(geraPag(d,geraEditForm(response3.data),toDo,done))
+                                res.end() 
+                            })
+                        })
+                    })
+                    .catch(function(erro){
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p> Erro ao contactar a base de dados.</p>")
+                        res.end()
+                    })
                 }
                 else{
                     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
@@ -170,7 +229,7 @@ var toDoServer = http.createServer(function (req, res) {
             case "POST":
                 if(req.url=='/tasks'){
                     recuperaInfo(req,resultado =>{
-                        resultado['date'] = d
+                        resultado['date'] = d.substring(0,10)
                         resultado['status'] = 'toDo'
                         axios.post('http://localhost:3000/tasks', resultado)
                         .then( resp =>{
@@ -184,7 +243,7 @@ var toDoServer = http.createServer(function (req, res) {
                         })
                     })
                 }
-                if(/\/tasks\/[0-9]+\/complete/.test(req.url)){
+                if(/\/tasks\/[0-9]+\/do/.test(req.url)){
                     var id = req.url.split('/')[2]
                     axios.get("http://localhost:3000/tasks/" + id).then(resp => {
                         var task = resp.data
@@ -201,6 +260,50 @@ var toDoServer = http.createServer(function (req, res) {
                         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
                         res.write("<p>Erro no GET: " + err + "</p>")
                         res.end()  
+                    })
+                }
+                if(/\/tasks\/[0-9]+\/undo/.test(req.url)){
+                    var id = req.url.split('/')[2]
+                    axios.get("http://localhost:3000/tasks/" + id).then(resp => {
+                        var task = resp.data
+                        task['status'] = 'toDo'
+                        axios.put('http://localhost:3000/tasks/' + id, task).then(resp => {
+                            res.writeHead(301, {'Location': '/'})
+                            res.end()
+                        }).catch(err => {
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Erro no PUT: " + err + "</p>")
+                            res.end()  
+                        })
+                    }).catch(err => {
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p>Erro no GET: " + err + "</p>")
+                        res.end()  
+                    })
+                }
+                if(/\/tasks\/[0-9]+\/edit/.test(req.url)){
+                    recuperaInfo(req,resultado =>{
+                        var id = req.url.split('/')[2]
+                        axios.get("http://localhost:3000/tasks/" + id).then(resp => {
+                            resultado['date'] = resp.data['date']
+                            resultado['status'] = resp.data['status']
+                            resultado['id'] = resp.data['id']
+                            axios.put('http://localhost:3000/tasks/'+id, resultado)
+                            .then( resp =>{
+                                res.writeHead(301, {'Location': '/'})
+                                res.end()
+                            })
+                            .catch(err =>{
+                                res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                                res.write("<p>Erro no PUT: " + err + "</p>")
+                                res.end()  
+                            })
+                        })
+                        .catch(err =>{
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Erro no GET: " + err + "</p>")
+                            res.end()  
+                        })
                     })
                 }
                 if(/\/tasks\/[0-9]+\/delete/.test(req.url)){

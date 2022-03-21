@@ -2,21 +2,21 @@
   "tasks": [
     {
       "name": "José",
-      "task": "Estudar matemática",
+      "task": "Estudar português",
       "type": "Escola",
-      "date": "2022-3-11",
       "deadline": "2022-3-25",
+      "date": "2022-3-11",
       "status": "toDo",
       "id": 0
     },
     {
       "name": "João",
-      "task": "Limpar a Cozinha",
+      "task": "Limpar o Quarto",
       "type": "Casa",
-      "date": "2022-3-12",
       "deadline": "2022-3-18",
-      "status": "done",
-      "id": 1
+      "date": "2022-3-12",
+      "id": 1,
+      "status": "done"
     }
   ]
 }

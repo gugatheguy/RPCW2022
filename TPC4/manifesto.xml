@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC3: Lista de Tarefas - um file server que utiliza um json server de tarefas como dataset</titulo>
+        <data>2022-03-15</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Criação de um file server dinâmico que consiste em uma Single Page Application para gerenciar uma lista de tarefas.</p>
+        <p>Este file server utiliza um json-server como base de dados, que contêm todas as tarefas e os seus dados.</p>
+        <p>O utilizador pode adicionar, remover e editar tarefas, também existe a opção de marcar ou desmarcar a tarefa como concluída.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>fileserver.js</url>
+            <texto>Ficheiro que representa o file server utilizado.</texto>
+        </resultado>
+        <resultado>
+            <url>db.json</url>
+            <texto>Ficheiro realtivo ao dataset utilizado.</texto>
+        </resultado>
+    </resultados>
+</doc>
