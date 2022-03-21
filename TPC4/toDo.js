@@ -5,6 +5,19 @@ var stt = require('./static.js')
 
 var {parse} = require('querystring')
 
+function recuperaInfo(request, callback){
+    if(request.headers['content-type'] == 'application/x-www-form-urlencoded'){
+        let body = ''
+        request.on('data', bloco => {
+            body += bloco.toString()
+        })
+        request.on('end', ()=>{
+            callback(parse(body))
+        })
+    }
+}
+
+
 function geraToDoTasks(tasks){
     var page = `
             <h2 class="w3-text-teal">Tarefas por fazer</h2>
@@ -12,10 +25,24 @@ function geraToDoTasks(tasks){
     tasks.forEach(t => {
         page +=`
                 <li class="w3-bar">
+                    <span class="w3-right">
+                        <div class="w3-cell-row">
+                            <div class="w3-cell">
+                                <form action="/tasks/${t.id}/complete" method="POST">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-gray" type="submit">Done</button>
+                                </form>
+                            </div>
+                            <div class="w3-cell">
+                                <form action="/tasks/${t.id}/delete" method="POST">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-red" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </span>
                     <div class="w3-bar-item">
-                      <span class="w3-large">${t.name}</span><br>
-                      <span>${t.task} - ${t.type}</span><br>
-                      <span class="w3-small">até ${t.deadline}</span>
+                        <span class="w3-large">${t.name}</span><br>
+                        <span>${t.task} - ${t.type}</span><br>
+                        <span class="w3-small">até ${t.deadline}</span>
                     </div>
                 </li>`
     });
@@ -23,17 +50,26 @@ function geraToDoTasks(tasks){
             </ul>`
     return page
 }
-function geraDoneTasks(){
+function geraDoneTasks(tasks){
     var page = `
             <h2 class="w3-text-teal">Tarefas feitas</h2>
             <ul class="w3-ul w3-card-4">`
     tasks.forEach(t => {
         page +=`
                 <li class="w3-bar">
+                    <span class="w3-right">
+                        <div class="w3-cell-row">
+                            <div class="w3-cell">
+                                <form action="/tasks/${t.id}/delete" method="POST">
+                                    <button class="w3-button w3-round-large w3-teal w3-hover-red" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </span>
                     <div class="w3-bar-item">
-                      <span class="w3-large">${t.name}</span><br>
-                      <span>${t.task} - ${t.type}</span><br>
-                      <span class="w3-small">até ${t.deadline}</span>
+                        <span class="w3-large">${t.name}</span><br>
+                        <span>${t.task} - ${t.type}</span><br>
+                        <span class="w3-small">até ${t.deadline}</span>
                     </div>
                 </li>`
     });
@@ -91,20 +127,8 @@ function geraPag(d,form,todo,done){
     </body>
 </html>
         `
-
 }
-/*var counter = 0
-axios.get("http://localhost:3000/tasks")
-                    .then(response => {
-                        var tasks = response.data
-                        tasks.forEach( t => {
-                            if (t.id >= counter)
-                                counter = t.id+1 
-                        });
-                    })
-                    .catch(function(erro){
-                    })
-    console.log("Id counter: "+counter)*/
+
 var toDoServer = http.createServer(function (req, res) {
     
     var d = new Date().toISOString().substr(0, 16)
@@ -119,8 +143,8 @@ var toDoServer = http.createServer(function (req, res) {
                     .then(response => {
                         var toDo = geraToDoTasks(response.data)
                         axios.get("http://localhost:3000/tasks?status=done")
-                        .then(response => {
-                            var done = geraToDoTasks(response.data)
+                        .then(response2 => {
+                            var done = geraDoneTasks(response2.data)
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
                             res.write(geraPag(d,geraForm(),toDo,done))
                             res.end() 
@@ -143,34 +167,59 @@ var toDoServer = http.createServer(function (req, res) {
                     res.end()
                 }
                 break
-            /*case "POST":
-                //res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                //Replace this code with a POST request to the API server
-                //res.write('<p>Recebi um POST dum aluno</p>')
-                //res.write('<p><a href="/">Voltar</a></p>')
-                //res.end()
-                if(req.url=='/alunos'){
+            case "POST":
+                if(req.url=='/tasks'){
                     recuperaInfo(req,resultado =>{
-                        //resultado[id] = resultado[Id]
-                        axios.post('http://localhost:3000/alunos', resultado)
+                        resultado['date'] = d
+                        resultado['status'] = 'toDo'
+                        axios.post('http://localhost:3000/tasks', resultado)
                         .then( resp =>{
-                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(geraPostConfirm(resp.data,d))
-                            res.end() 
+                            res.writeHead(301, {'Location': '/'})
+                            res.end()
                         })
                         .catch(err =>{
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
                             res.write("<p>Erro no POST: " + err + "</p>")
-                            res.write("<p><a href=\"/\">Voltar</a></p>")
                             res.end()  
                         })
+                    })
+                }
+                if(/\/tasks\/[0-9]+\/complete/.test(req.url)){
+                    var id = req.url.split('/')[2]
+                    axios.get("http://localhost:3000/tasks/" + id).then(resp => {
+                        var task = resp.data
+                        task['status'] = 'done'
+                        axios.put('http://localhost:3000/tasks/' + id, task).then(resp => {
+                            res.writeHead(301, {'Location': '/'})
+                            res.end()
+                        }).catch(err => {
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                            res.write("<p>Erro no PUT: " + err + "</p>")
+                            res.end()  
+                        })
+                    }).catch(err => {
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p>Erro no GET: " + err + "</p>")
+                        res.end()  
+                    })
+                }
+                if(/\/tasks\/[0-9]+\/delete/.test(req.url)){
+                    var id = req.url.split('/')[2]
+                    axios.delete("http://localhost:3000/tasks/" + id).then(resp => {
+                        res.writeHead(301, {'Location': '/'})
+                        res.end()
+                    })
+                    .catch(err => {
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+                        res.write("<p>Erro no DELETE: " + err + "</p>")
+                        res.end()  
                     })
                 }
                 break
             default: 
                 res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                res.write("<p>" + req.method + " nÃ£o suportado neste serviÃ§o.</p>")
-                res.end()*/
+                res.write("<p>" + req.method + " não suportado neste serviço.</p>")
+                res.end()
         }
     }
 }) 

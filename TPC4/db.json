@@ -1,22 +1,22 @@
 {
-    "tasks":[
-        {
-            "id": 0,
-            "name": "José",
-            "task": "Estudar matemática",
-            "type": "Escola",
-            "date":"2022-3-11",
-            "deadline":"2022-3-25",
-            "status": "toDo"
-        },
-        {
-            "id": 1,
-            "name": "João",
-            "task": "Limpar a Cozinha",
-            "type": "Casa",
-            "date":"2022-3-12",
-            "deadline":"2022-3-18",
-            "status": "done"
-        }
-    ]
+  "tasks": [
+    {
+      "name": "José",
+      "task": "Estudar matemática",
+      "type": "Escola",
+      "date": "2022-3-11",
+      "deadline": "2022-3-25",
+      "status": "toDo",
+      "id": 0
+    },
+    {
+      "name": "João",
+      "task": "Limpar a Cozinha",
+      "type": "Casa",
+      "date": "2022-3-12",
+      "deadline": "2022-3-18",
+      "status": "done",
+      "id": 1
+    }
+  ]
 }
