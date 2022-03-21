@@ -141,7 +141,8 @@ function geraEditForm(t){
 }
 
 function geraPag(d,form,todo,done){
-    return `<html>
+    return `<!DOCTYPE html>
+<html>
     <head>
         <title>Lista de Tarefas</title>
         <meta charset="utf-8"/>
@@ -149,19 +150,21 @@ function geraPag(d,form,todo,done){
         <link rel="stylesheet" href="w3.css"/>
     </head>
     <body>
-        <div class="w3-container w3-teal w3-center">
-            <h1>Tarefas</h1>
-        </div>
-        <div class="w3-container w3-border w3-hover-border-gray w3-border-teal">`+
-        form+
-        `</div>
-        <div class = "w3-cell-row">
-            <div class = "w3-container w3-border w3-hover-border-gray w3-border-teal w3-cell"  style="width:50%">`+
-            todo+
+        <div class="w3-container w3-padding-8">
+            <div class="w3-container w3-teal w3-center">
+                <h1>Tarefas</h1>
+            </div>
+            <div class="w3-container w3-border w3-hover-border-gray w3-border-teal">`+
+            form+
             `</div>
-            <div class = "w3-container w3-border w3-hover-border-gray w3-border-teal w3-cell" style="width:50%">`+
-            done+
-            `</div>
+            <div class = "w3-cell-row">
+                <div class = "w3-container w3-border w3-hover-border-gray w3-border-teal w3-cell"  style="width:50%">`+
+                todo+
+                `</div>
+                <div class = "w3-container w3-border w3-hover-border-gray w3-border-teal w3-cell" style="width:50%">`+
+                done+
+                `</div>
+            </div>
         </div>
     </body>
 </html>
