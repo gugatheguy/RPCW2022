@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Lista de músicas
+    link(rel='stylesheet', href='/stylesheets/w3.css')
+    link(rel='icon', href='/images/favicon.png')
+  body
+    div(class="w3-container w3-padding-8 w3-center w3-mobile")
+      div(class="w3-container w3-pale-blue w3-center w3-mobile")
+        h1 Lista de Músicas da província #{prov}
+      br
+      table(class="w3-table w3-bordered w3-centered w3-striped w3-hoverable")
+        tr(class="w3-teal")
+            th
+              b Id
+            th
+              b Título
+            th
+              b Província
+        each m in musicas
+          tr
+            td
+              a(href= '/musicas/'+m.id)=m.id
+            td= m.tit
+            td= m.prov
+
+
+    

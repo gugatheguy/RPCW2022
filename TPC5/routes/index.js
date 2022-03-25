@@ -30,4 +30,16 @@ router.get('/musicas/:id', function(req, res, next) {
     })
 });
 
+router.get('/musicas/prov/:idProv', function(req, res, next) {
+  axios.get("http://localhost:3000/musicas?prov="+req.params.idProv)
+    .then(response => {
+        var musl = response.data
+        res.render('musicas', { musicas: musl, prov: req.params.idProv});
+    })
+    .catch(function(erro){
+      res.render('error', { error: erro });
+    })
+});
+
+
 module.exports = router;
