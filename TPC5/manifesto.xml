@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC5: Repositório de músicas com Express</titulo>
+        <data>2022-03-15</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Este TPC consiste na criação de um file server dinâmico, através da framework Express, para representar uma lista de músicas.</p>
+        <p>Este file server utiliza um json-server como base de dados, que contêm todas as músicas e os seus dados, para tal foi necessário associar um id a cada música do dataset.</p>
+        <p>O utilizador pode verificar a lista das músicas, listar as músicas por província ou verificar os dados de uma única música.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>toDo.js</url>
+            <texto>Ficheiro relativo ao file server utilizado.</texto>
+        </resultado>
+        <resultado>
+            <url>db.json</url>
+            <texto>Ficheiro realtivo ao dataset utilizado.</texto>
+        </resultado>
+        <resultado>
+            <url>static.js</url>
+            <texto>Módulo, disponibilizado pelo docente da UC, para servir ficheiros estáticos.</texto>
+        </resultado>
+    </resultados>
+</doc>

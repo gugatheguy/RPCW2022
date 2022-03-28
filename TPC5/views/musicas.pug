@@ -19,10 +19,11 @@ html
               b Província
         each m in musicas
           tr
+            td=m.id
             td
-              a(href= '/musicas/'+m.id)=m.id
-            td= m.tit
-            td= m.prov
+              a(href= '/musicas/'+m.id)=m.tit
+            td
+              a(href='/musicas/prov/'+m.prov)= m.prov
 
 
     
