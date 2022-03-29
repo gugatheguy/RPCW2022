@@ -19,16 +19,8 @@
     </resumo>
     <resultados>
         <resultado>
-            <url>toDo.js</url>
-            <texto>Ficheiro relativo ao file server utilizado.</texto>
-        </resultado>
-        <resultado>
-            <url>db.json</url>
+            <url>arq-son-EVO.json</url>
             <texto>Ficheiro realtivo ao dataset utilizado.</texto>
-        </resultado>
-        <resultado>
-            <url>static.js</url>
-            <texto>Módulo, disponibilizado pelo docente da UC, para servir ficheiros estáticos.</texto>
         </resultado>
     </resultados>
 </doc>
