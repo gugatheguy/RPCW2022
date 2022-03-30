@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  .w3-container.w3-margin
+    .w3-card-4
+      header.w3-container.w3-teal
+        h3.w3-left File Upload
+      .w3-container 
+        form(class="w3-container" action="/files" method="POST" enctype="multipart/form-data")
+          .w3-row.w3-margin-bottom
+            label(class="w3-text-teal")
+              b Select file
+            input(class="w3-input w3-border w3-light-grey" type="file" name="myFile")
+          .w3-row.w3-margin-bottom
+            label.w3-text-teal Description
+            input.w3-input(type='text' name='desc' placeholder='File Description')
+          .w3-row.w3-margin-bottom
+            input(class="w3-btn w3-round-large w3-blue-grey" type="submit" value="Submit")
+
+    .w3-card-4
+      header.w3-container.w3-teal
+        h3.w3-left File List
+      if list.length > 0
+        .w3-container 
+          table.w3-table-all
+            tr 
+              th Date
+              th Name
+              th Mimetype
+              th Size
+              th Description
+            each f in list
+              tr
+                td= f.date
+                td= f.name
+                td= f.mimetype
+                td= f.size
+                td= f.desc
+                td
+                  a(href="/delete/"+f._id class="w3-button w3-round-large w3-pale-red w3-hover-red") Delete
+      else
+        .w3-container
+          p There are no files...
