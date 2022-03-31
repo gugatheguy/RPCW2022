@@ -15,7 +15,7 @@ block content
             label.w3-text-teal Description
             input.w3-input(type='text' name='desc' placeholder='File Description')
           .w3-row.w3-margin-bottom
-            input(class="w3-btn w3-round-large w3-blue-grey" type="submit" value="Submit")
+            input(class="w3-btn w3-round-larg w3-blue-grey" type="submit" value="Submit")
 
     .w3-card-4
       header.w3-container.w3-teal
@@ -32,7 +32,8 @@ block content
             each f in list
               tr
                 td= f.date
-                td= f.name
+                td
+                  a(href='/files/'+f.id)= f.name
                 td= f.mimetype
                 td= f.size
                 td= f.desc

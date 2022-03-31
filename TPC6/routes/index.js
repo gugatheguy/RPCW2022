@@ -44,4 +44,17 @@ router.get('/delete/:id', function(req, res, next) {
     .catch(error => res.render('error', {error: error}))
 });
 
+router.get('/files/:id', function(req, res, next) {
+  File.lookUp(req.params.id)
+    .then(data => {
+      fs.readFile(__dirname+"/../fileStore/"+data.name, (err, content) => {
+        res.writeHead(200, {'Content-Type': data.mimetype})
+        res.write(content)
+        res.end()
+      })
+    })
+    .catch(error => res.render('error', {error: error}))
+
+});
+
 module.exports = router;
