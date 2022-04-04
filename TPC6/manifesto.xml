@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC6: aplicação web para armazenamento de ficheiros</titulo>
+        <data>2022-03-29</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Este TPC consiste na criação de uma aplicação web, através da framework Express, para armazenar ficheiros.</p>
+        <p>Os ficheiros são armazenados na diretoria "fileStore" e as suas informações são guardadas numa base de dados MongoDB.</p>
+        <p>O utilizador pode verificar a lista dos ficheiros, remover ficheiros da base de dados e verificar cada ficheiro.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>index.js</url>
+            <texto>Router utilizado no repositório.</texto>
+        </resultado>
+        <resultado>
+            <url>app.js</url>
+            <texto>Serviço que responde pedidos e realiza a comunicação com a base de dados e com os routers.</texto>
+        </resultado>
+    </resultados>
+</doc>
