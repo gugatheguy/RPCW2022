@@ -1,0 +1,188 @@
+extends layout
+
+block content
+    header.w3-container.mobile.w3-teal
+      a(href= '/' class="w3-button w3-round-large")
+        h1 CLAV
+    .w3-container.w3-padding-16.w3-mobile
+      .w3-container.w3-pale-blue.w3-center.w3-mobile
+        h2= classe.titulo
+      .w3-container.w3-mobile
+        ul.w3-ul.w3-card-4
+          li.w3-bar
+            .w3-cell-row
+              .w3-cell.w3-cell-top(style="width:10%")
+                span.w3-bar-item.w3-border.w3-round-xlarge
+                  b Título
+              .w3-cell(style="width:1%")
+              .w3-cell.w3-cell-middle
+                  span.w3-bar-item.w3-bar-item= classe.titulo
+          li.w3-bar
+            .w3-cell-row
+              .w3-cell.w3-cell-top(style="width:10%")
+                span.w3-bar-item.w3-border.w3-round-xlarge
+                  b Código
+              .w3-cell(style="width:1%")
+              .w3-cell.w3-cell-middle
+                  span.w3-bar-item.w3-bar-item= classe.codigo
+          li.w3-bar
+            .w3-cell-row
+              .w3-cell.w3-cell-top(style="width:10%")
+                span.w3-bar-item.w3-border.w3-round-xlarge
+                  b Descrição
+              .w3-cell(style="width:1%")
+              .w3-cell.w3-cell-middle
+                span.w3-bar-item= classe.descricao
+          li.w3-bar
+            .w3-cell-row
+              .w3-cell.w3-cell-top(style="width:10%")
+                span.w3-bar-item.w3-border.w3-round-xlarge
+                  b Estado
+              .w3-cell(style="width:1%")
+              .w3-cell.w3-cell-middle
+                  span.w3-bar-item.w3-bar-item= classe.status
+          li.w3-bar
+            .w3-cell-row
+              .w3-cell.w3-cell-top(style="width:10%")
+                span.w3-bar-item.w3-border.w3-round-xlarge
+                  b Nível
+              .w3-cell(style="width:1%")
+              .w3-cell.w3-cell-middle
+                  span.w3-bar-item.w3-bar-item= classe.nivel
+          if classe.filhos.length > 0
+            li.w3-bar
+              .w3-cell-row
+                .w3-cell.w3-cell-top(style="width:10%")
+                  span.w3-bar-item.w3-border.w3-round-xlarge
+                    b Processos filhos
+                .w3-cell(style="width:1%")
+                .w3-cell.w3-cell-middle
+                  ul.w3-ul.w3-card-4
+                    each c in classe.filhos
+                      li.w3-bar.w3-hover-gray
+                        a(href='/classe/'+c.codigo)
+                          .w3-bar-item
+                            span(class="w3-large")= c.titulo
+                            br
+                            span
+                              b código:
+                            span= c.codigo
+          if classe.notasAp.length > 0
+            li.w3-bar
+              .w3-cell-row
+                .w3-cell.w3-cell-top(style="width:10%")
+                  span.w3-bar-item.w3-border.w3-round-xlarge
+                    b Notas de Aplicação
+                .w3-cell(style="width:1%")
+                .w3-cell.w3-cell-middle
+                  ul.w3-ul.w3-card-4
+                    each n in classe.notasAp
+                      li.w3-bar
+                          .w3-bar-item
+                            span= n.nota
+          if classe.exemplosNotasAp.length > 0
+            li.w3-bar
+              .w3-cell-row
+                .w3-cell.w3-cell-top(style="width:10%")
+                  span.w3-bar-item.w3-border.w3-round-xlarge
+                    b Exemplos de Notas de aplicação
+                .w3-cell(style="width:1%")
+                .w3-cell.w3-cell-middle
+                  ul.w3-ul.w3-card-4
+                    each n in classe.exemplosNotasAp
+                      li.w3-bar
+                          .w3-bar-item
+                            span= n.exemplo
+          if classe.notasEx.length > 0
+            li.w3-bar
+              .w3-cell-row
+                .w3-cell.w3-cell-top(style="width:10%")
+                  span.w3-bar-item.w3-border.w3-round-xlarge
+                    b Notas de Exclusão
+                .w3-cell(style="width:1%")
+                .w3-cell.w3-cell-middle
+                  ul.w3-ul.w3-card-4
+                    each n in classe.notasEx
+                      li.w3-bar
+                          .w3-bar-item
+                            span= n.nota
+          if classe.termosInd.length > 0
+            li.w3-bar
+              .w3-cell-row
+                .w3-cell.w3-cell-top(style="width:10%")
+                  span.w3-bar-item.w3-border.w3-round-xlarge
+                    b Termos de Índice
+                .w3-cell(style="width:1%")
+                .w3-cell.w3-cell-middle
+                  ul.w3-ul.w3-card-4
+                    each n in classe.termosInd
+                      li.w3-bar
+                          .w3-bar-item
+                            span= n.termo
+          if classe.nivel == 3
+            li.w3-bar
+              span.w3-bar-item.w3-border.w3-round-xlarge
+                h3
+                  b Processos Relacionados
+            li.w3-bar
+              .w3-cell.w3-cell-middle
+                table.w3-table.w3-bordered.w3-centered
+                  tr
+                    th
+                      b Relação
+                    th
+                      b Processos
+                  if pRel.eCruzadoCom.length > 0
+                    tr
+                      td
+                        b É Cruzado com
+                      td
+                        ul.w3-ul.w3-card-4
+                          each p in pRel.eCruzadoCom
+                            li.w3-bar.w3-hover-gray
+                                a(href='/classe/'+p.codigo)
+                                  .w3-bar-item
+                                    span(class="w3-large")= p.titulo + " - código:"
+                                    span= p.codigo
+                  if pRel.eComplementarDe.length > 0
+                    tr
+                      td
+                        b É Complementar de
+                      td
+                        ul.w3-ul.w3-card-4
+                          each p in pRel.eComplementarDe
+                            li.w3-bar.w3-hover-gray
+                                a(href='/classe/'+p.codigo)
+                                  .w3-bar-item
+                                    span(class="w3-large")= p.titulo + " - código:"
+                                    span= p.codigo
+                  if pRel.eSuplementoDe.length > 0
+                    tr
+                      td
+                        b É Suplemento de
+                      td
+                        ul.w3-ul.w3-card-4
+                          each p in pRel.eSuplementoDe
+                            li.w3-bar.w3-hover-gray
+                                a(href='/classe/'+p.codigo)
+                                  .w3-bar-item
+                                    span(class="w3-large")= p.titulo + " - código:"
+                                    span= p.codigo
+                  if pRel.eSuplementoPara.length > 0
+                    tr
+                      td
+                        b É Suplemento para
+                      td
+                        ul.w3-ul.w3-card-4.w3-hover-gray
+                          each p in pRel.eSuplementoPara
+                            li.w3-bar
+                                a(href='/classe/'+p.codigo)
+                                  .w3-bar-item
+                                    span(class="w3-large")= p.titulo + " - código:"
+                                    span= p.codigo
+        if temPai == 1
+          p
+            a(href= '/classe/'+classe.pai.codigo class="w3-button w3-pale-blue w3-hover-gray w3-round-large") Voltar
+        else
+          p
+            a(href= '/' class="w3-button w3-pale-blue w3-hover-gray w3-round-large") Voltar
