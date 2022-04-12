@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC7: aplicação web com catálogo CLAV</titulo>
+        <data>2022-04-05</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Este TPC consiste na criação de uma aplicação web, através da framework Express, para aceder ao catálogo de processos de negócio da Administração Pública.</p>
+        <p>A informação refente aos processos é recolhida através da API do projeto CLAV .</p>
+        <p>O utilizador pode verificar a lista dos processos de nível 1, visitar a página de cada processo e verificar as suas informações base.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>index.js</url>
+            <texto>Router utilizado no repositório.</texto>
+        </resultado>
+        <resultado>
+            <url>app.js</url>
+            <texto>Serviço que responde pedidos e realiza a comunicação com os routers.</texto>
+        </resultado>
+    </resultados>
+</doc>
