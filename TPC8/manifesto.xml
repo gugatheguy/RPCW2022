@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC8: gestor de parágrafos</titulo>
+        <data>2022-04-19</data>
+        <autor>
+            <id>PG47229</id>
+            <nome>Gustavo Araújo Lourenço</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Este TPC consiste na criação de uma página html que, através do JQuery, consegue consultar, adicionar, editar ou remover parágrafos de uma base de dados.</p>
+        <p>Os parágrafos estão armazenados numa base de dados MongoDB, que por sua vez está ligada à uma api criada através da framework express.</p>
+        <p>Através da utilização do JQuery podemos criar a nossa SPA (Single-Page Application) e comunicar com a API.</p>
+    </resumo>
+    <resultados>
+        <resultado>
+            <url>index.html</url>
+            <texto>Página principal da aplicação.</texto>
+        </resultado>
+        <resultado>
+            <url>myscript.js</url>
+            <texto>Script em javascript que, ao utilizar jQuery, comunica com a API e atualiza as informações da página.</texto>
+        </resultado>
+        <resultado>
+            <url>mypara/controllers/para.js</url>
+            <texto>Controlador da API responsável por comunicar com a base de dados.</texto>
+        </resultado>
+        <resultado>
+            <url>mypara/models/para.js</url>
+            <texto>Modelo que define o schema de um parágrafo na base de dados.</texto>
+        </resultado>
+        <resultado>
+            <url>mypara/routes/index.js</url>
+            <texto>Routeador utilizado na API.</texto>
+        </resultado>
+        <resultado>
+            <url>mypara/app.js</url>
+            <texto>Serviço que responde pedidos e realiza a comunicação com os routers.</texto>
+        </resultado>
+    </resultados>
+</doc>
